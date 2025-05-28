@@ -1,4 +1,8 @@
 resource "digitalocean_database_cluster" "db" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
   name       = "example"
   engine     = "pg"
   version    = "17"
