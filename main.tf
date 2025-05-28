@@ -16,19 +16,23 @@ data "digitalocean_ssh_key" "extra" {
   name = "extra"
 }
 
+locals {
+  ssh_keys = [
+    digitalocean_ssh_key.default.fingerprint,
+    data.digitalocean_ssh_key.extra.fingerprint,
+  ]
+}
+
 resource "digitalocean_droplet" "example" {
   lifecycle {
     prevent_destroy = true
   }
 
-  image  = local.DEBIAN
-  name   = "example"
-  region = local.region
-  size   = "s-1vcpu-1gb"
-  ssh_keys = [
-    digitalocean_ssh_key.default.fingerprint,
-    data.digitalocean_ssh_key.extra.fingerprint,
-  ]
+  image    = local.DEBIAN
+  name     = "example"
+  region   = local.region
+  size     = "s-1vcpu-1gb"
+  ssh_keys = local.ssh_keys
 }
 
 output "ip_addr" {
