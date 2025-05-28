@@ -1,5 +1,6 @@
 locals {
   DEBIAN = "debian-12-x64"
+  UBUNTU = "ubuntu-24-04-x64"
   FRA    = "fra1"
 }
 

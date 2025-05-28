@@ -1,18 +1,29 @@
 locals {
   labs = {
-    "foo" = {}
-    "bar" = {}
+    "foo" = merge(local.droplet_defaults, {
+      image = local.UBUNTU
+    })
+    "bar" = merge(local.droplet_defaults, {
+      size = "s-2vcpu-2gb"
+    })
+  }
+
+  droplet_defaults = {
+    image    = local.DEBIAN
+    region   = local.region
+    size     = "s-1vcpu-1gb"
+    ssh_keys = local.ssh_keys
   }
 }
 
 resource "digitalocean_droplet" "lab" {
   for_each = local.labs
 
-  image    = local.DEBIAN
+  image    = each.value.image
   name     = each.key
-  region   = local.region
-  size     = "s-1vcpu-1gb"
-  ssh_keys = local.ssh_keys
+  region   = each.value.region
+  size     = each.value.size
+  ssh_keys = each.value.ssh_keys
 }
 
 resource "digitalocean_record" "lab" {
