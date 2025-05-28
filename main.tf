@@ -4,10 +4,10 @@ resource "digitalocean_ssh_key" "default" {
 }
 
 resource "digitalocean_droplet" "example" {
-  image    = "debian-12-x64"
-  name     = "example"
-  region   = "fra1"
-  size     = "s-1vcpu-1gb"
+  image  = "debian-12-x64"
+  name   = "example"
+  region = "fra1"
+  size   = "s-1vcpu-1gb"
   ssh_keys = [
     digitalocean_ssh_key.default.fingerprint,
   ]
