@@ -19,3 +19,11 @@ resource "digitalocean_record" "alias" {
   value  = "${digitalocean_record.example.fqdn}."
   ttl    = 300
 }
+
+output "aliases" {
+  value = [for el in digitalocean_record.alias : el.fqdn]
+}
+
+output "aliases2" {
+  value = digitalocean_record.alias[*].fqdn
+}
