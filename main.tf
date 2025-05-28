@@ -13,6 +13,11 @@ resource "digitalocean_ssh_key" "default" {
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
+resource "digitalocean_ssh_key" "ondrejsika_mac" {
+  name       = "ondrejsika-mac"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCslNKgLyoOrGDerz9pA4a4Mc+EquVzX52AkJZz+ecFCYZ4XQjcg2BK1P9xYfWzzl33fHow6pV/C6QC3Fgjw7txUeH7iQ5FjRVIlxiltfYJH4RvvtXcjqjk8uVDhEcw7bINVKVIS856Qn9jPwnHIhJtRJe9emE7YsJRmNSOtggYk/MaV2Ayx+9mcYnA/9SBy45FPHjMlxntoOkKqBThWE7Tjym44UNf44G8fd+kmNYzGw9T5IKpH1E1wMR+32QJBobX6d7k39jJe8lgHdsUYMbeJOFPKgbWlnx9VbkZh+seMSjhroTgniHjUl8wBFgw0YnhJ/90MgJJL4BToxu9PVnH"
+}
+
 data "digitalocean_ssh_key" "extra" {
   name = "extra"
 }
@@ -21,7 +26,7 @@ locals {
   ssh_keys = [
     digitalocean_ssh_key.default.fingerprint,
     data.digitalocean_ssh_key.extra.fingerprint,
-    "0b:e9:c2:df:2e:89:89:6f:92:dc:b7:60:83:20:21:c0", // ondrej sika local
+    digitalocean_ssh_key.ondrejsika_mac.fingerprint,
   ]
 }
 
