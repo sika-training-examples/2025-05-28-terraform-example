@@ -1,4 +1,8 @@
 resource "digitalocean_droplet" "cloud_init" {
+  lifecycle {
+    ignore_changes = [ssh_keys]
+  }
+
   image     = local.DEBIAN
   name      = "cloud-init"
   region    = local.region

@@ -1,4 +1,8 @@
 resource "digitalocean_droplet" "provisioner" {
+  lifecycle {
+    ignore_changes = [ssh_keys]
+  }
+
   image    = local.DEBIAN
   name     = "provisioner"
   region   = local.region

@@ -17,6 +17,10 @@ locals {
 }
 
 resource "digitalocean_droplet" "lab" {
+  lifecycle {
+    ignore_changes = [ssh_keys]
+  }
+
   for_each = local.labs
 
   image    = each.value.image

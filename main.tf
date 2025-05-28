@@ -21,12 +21,14 @@ locals {
   ssh_keys = [
     digitalocean_ssh_key.default.fingerprint,
     data.digitalocean_ssh_key.extra.fingerprint,
+    "0b:e9:c2:df:2e:89:89:6f:92:dc:b7:60:83:20:21:c0", // ondrej sika local
   ]
 }
 
 resource "digitalocean_droplet" "example" {
   lifecycle {
     prevent_destroy = true
+    ignore_changes  = [ssh_keys]
   }
 
   image    = local.DEBIAN
