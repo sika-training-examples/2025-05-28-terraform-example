@@ -1,3 +1,12 @@
+locals {
+  DEBIAN = "debian-12-x64"
+  FRA    = "fra1"
+}
+
+locals {
+  region = local.FRA
+}
+
 resource "digitalocean_ssh_key" "default" {
   name       = "default"
   public_key = file("~/.ssh/id_rsa.pub")
@@ -12,9 +21,9 @@ resource "digitalocean_droplet" "example" {
     prevent_destroy = true
   }
 
-  image  = "debian-12-x64"
+  image  = local.DEBIAN
   name   = "example"
-  region = "fra1"
+  region = local.region
   size   = "s-1vcpu-1gb"
   ssh_keys = [
     digitalocean_ssh_key.default.fingerprint,
