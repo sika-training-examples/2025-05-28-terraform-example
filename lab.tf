@@ -6,6 +6,7 @@ locals {
     "bar" = merge(local.droplet_defaults, {
       size = "s-2vcpu-2gb"
     })
+    "baz" = merge(local.droplet_defaults, {})
   }
 
   droplet_defaults = {
