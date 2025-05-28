@@ -29,6 +29,7 @@ resource "digitalocean_droplet" "lab" {
   region   = each.value.region
   size     = each.value.size
   ssh_keys = each.value.ssh_keys
+  tags     = ["terraform"]
 }
 
 resource "digitalocean_record" "lab" {
