@@ -29,6 +29,10 @@ module "hello_world_app" {
   image_repository    = "sikalabs/hello-world-server"
   instance_count      = 2
   port                = 8000
+  env = {
+    TEXT  = each.value.text
+    COLOR = "#0280FF"
+  }
 }
 
 output "hello_world_app_urls" {
