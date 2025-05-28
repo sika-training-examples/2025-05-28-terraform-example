@@ -20,6 +20,10 @@ variable "instance_count" {
 variable "port" {
   default = 80
 }
+variable "env" {
+  type    = map(string)
+  default = {}
+}
 
 resource "digitalocean_app" "this" {
   spec {
@@ -35,6 +39,14 @@ resource "digitalocean_app" "this" {
         registry      = var.image_registry
         repository    = var.image_repository
         tag           = var.image_tag
+      }
+      dynamic "env" {
+        for_each = var.env
+        content {
+          type  = "GENERAL"
+          key   = env.key
+          value = env.value
+        }
       }
     }
 
