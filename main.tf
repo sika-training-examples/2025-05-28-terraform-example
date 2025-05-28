@@ -3,6 +3,10 @@ resource "digitalocean_ssh_key" "default" {
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
+data "digitalocean_ssh_key" "extra" {
+  name = "extra"
+}
+
 resource "digitalocean_droplet" "example" {
   lifecycle {
     prevent_destroy = true
@@ -14,6 +18,7 @@ resource "digitalocean_droplet" "example" {
   size   = "s-1vcpu-1gb"
   ssh_keys = [
     digitalocean_ssh_key.default.fingerprint,
+    data.digitalocean_ssh_key.extra.fingerprint,
   ]
 }
 
