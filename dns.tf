@@ -9,3 +9,13 @@ resource "digitalocean_record" "example" {
   value  = digitalocean_droplet.example.ipv4_address
   ttl    = 300
 }
+
+resource "digitalocean_record" "alias" {
+  count = 2
+
+  domain = digitalocean_domain.default.id
+  type   = "CNAME"
+  name   = "${digitalocean_record.example.name}-alias-${count.index}"
+  value  = "${digitalocean_record.example.fqdn}."
+  ttl    = 300
+}
