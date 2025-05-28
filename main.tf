@@ -40,5 +40,5 @@ output "ip_addr" {
 }
 
 output "cost_per_day" {
-  value = digitalocean_droplet.example.price_hourly * 24
+  value = format("$%.2f", digitalocean_droplet.example.price_hourly * 24)
 }
