@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/random"
       version = "3.7.2"
     }
+    slu = {
+      source  = "sikalabsx/slu"
+      version = "0.2.0"
+    }
   }
 }
 
