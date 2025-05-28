@@ -12,3 +12,10 @@ variable "digitalocean_token" {}
 provider "digitalocean" {
   token = var.digitalocean_token
 }
+
+locals {
+  // List of objects I really dont want to destroy
+  PREVENT_DESTROY = [
+    digitalocean_droplet.example, // PREVENT DESTROY
+  ]
+}

@@ -4,6 +4,10 @@ resource "digitalocean_ssh_key" "default" {
 }
 
 resource "digitalocean_droplet" "example" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
   image  = "debian-12-x64"
   name   = "example"
   region = "fra1"
